@@ -2,18 +2,20 @@ import React, {useState} from 'react'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import Firebase from '../config/Firebase'
 
-const Signup = props => {
+const Signup = ({navigation, route}) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     handleSignUp = () => {
-        const { email, password } = this.state
         Firebase.auth()
         .createUserWithEmailAndPassword(email, password)
         .then((data) => {
             console.log(data)
-            console.log('you signed up!')
+            let firebaseUser = Firebase.auth().currentUser
+            firebaseUser.getIdToken().then(function(idToken) {
+                route.params.setToken(idToken)
+            })
         })
         .catch(error => console.log(error))
     }

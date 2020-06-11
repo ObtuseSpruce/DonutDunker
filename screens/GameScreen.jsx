@@ -1,13 +1,10 @@
 import React from 'react'
 import {View, Text, StyleSheet, Button} from 'react-native'
 
-const GameOverScreen = props => {
+const GameScreen = props => {
     return (
     <View style={styles.screen}>
-      <View style={styles.container}>
-        <Text style={{color: "#f4acb7", fontWeight: 'bold', fontSize: 100,}}>{props.buttonText}</Text>
-        <Button title="Click Me" color="#f4acb7" onPress={() => {props.setButtonText(props.buttonText + 1)}} />
-      </View>
+      <Text>you did it</Text>
     </View>
     )
 }
@@ -26,4 +23,4 @@ const styles=StyleSheet.create({
     },
 })
 
-export default GameOverScreen
+export default GameScreen
