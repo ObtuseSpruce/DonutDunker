@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import Firebase from '../config/Firebase'
 
@@ -59,6 +59,7 @@ const Signup = props => {
 
 const styles = StyleSheet.create({
     container: {
+        width: "100%",
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',

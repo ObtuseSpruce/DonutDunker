@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button } from 'react-native'
 import Firebase from '../config/Firebase'
 
-const Login = props => {
+const Login = ({navigation}) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -42,7 +42,7 @@ const Login = props => {
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-            <Button title="Don't have an account yet? Sign up" />
+            <Button title="Don't have an account yet? Sign up" onPress={() => navigation.push('Signup')}/>
         </View>
 
     )
@@ -50,6 +50,7 @@ const Login = props => {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
