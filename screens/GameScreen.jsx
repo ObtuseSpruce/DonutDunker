@@ -1,10 +1,36 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {View, Text, StyleSheet, Button} from 'react-native'
+import Firebase from '../config/Firebase'
 
-const GameScreen = props => {
-    return (
+
+
+const GameScreen = ({navigation, route}) => {
+  const [donuts, setDonuts] = useState(0)
+
+  console.log(route.params.user)
+  let db = Firebase.database()
+  let donutdb = db.ref('posts' + route.params.user.user_id)
+
+  const addDonuts = (donutNum) => {
+      donutdb.set({
+        donuts: donutNum,
+        // createdAt: db.FieldValue.serverTimeStamp
+      })
+    }
+
+  useEffect(() => {
+      donutdb.once('value') 
+      .then(function(snapshot) {
+        setDonuts(snapshot.val().donuts)
+      })
+  })
+
+  return (
     <View style={styles.screen}>
-      <Text>you did it</Text>
+      <Text>{donuts}</Text>
+      <Button title="Donuts" onPress={()=> setDonuts(donuts + 1)} />
+      <Button title="send to server!" onPress={()=> addDonuts(donuts)} />
+
     </View>
     )
 }

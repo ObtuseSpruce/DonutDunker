@@ -50,7 +50,7 @@ export default function App() {
   
   const GameStackScreen = () => (
     <GameStack.Navigator>
-      <GameStack.Screen name="Donut Dunker" component={GameScreen} />
+      <GameStack.Screen name="Donut Dunker" component={GameScreen} initialParams={{ user: user }} />
     </GameStack.Navigator>
   )
 
