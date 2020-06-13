@@ -11,6 +11,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './screens/Login'
 import Signup from './screens/signup'
 import GameScreen from './screens/GameScreen'
+import ShopScreen from './screens/ShopScreen'
+
 
 
 
@@ -37,6 +39,8 @@ export default function App() {
       setUser(null)
     }
   }
+
+
   const LoginStack = createStackNavigator()
   const GameStack = createStackNavigator()
   const Tabs = createBottomTabNavigator()
@@ -48,18 +52,42 @@ export default function App() {
     </LoginStack.Navigator>
   )
   
+  const SignupScreen = () => (
+    <LoginStack.Navigator>
+      <LoginStack.Screen name="SignUpScreen" component={Signup} />
+    </LoginStack.Navigator>
+  )
+
   const GameStackScreen = () => (
     <GameStack.Navigator>
-      <GameStack.Screen name="Donut Dunker" component={GameScreen} initialParams={{ user: user }} />
+      <GameStack.Screen name="GameScreen" component={GameScreen} initialParams={{ user: user }} />
     </GameStack.Navigator>
   )
 
+    const ShopScreenOpen = () => (
+      <GameStack.Navigator>
+        <GameStack.Screen name="ShopScreen" component={ShopScreen} />
+      </GameStack.Navigator>
+    )
+
   let content
+  let contentShop
+  let titleName
 
   if (!user) {
     content = LoginStackScreen
+    contentShop = SignupScreen
+    titleName = "Signup"
   } else {
     content = GameStackScreen
+    contentShop = ShopScreenOpen
+    titleName = "Shop"
+
+  }
+
+
+  const tabNavigator = () => {
+    <Tabs.Screen name="SignupHere" component={contentShop} />
   }
 
   useEffect(() => {
@@ -71,6 +99,7 @@ export default function App() {
     <NavigationContainer>
       <Tabs.Navigator>
         <Tabs.Screen name="Donut Dunker" component={content} />
+        <Tabs.Screen name={titleName} component={contentShop} />
       </Tabs.Navigator>
     </NavigationContainer>
   );
