@@ -5,9 +5,26 @@ import Firebase from '../config/Firebase'
 
 const GameScreen = ({navigation, route}) => {
   const [donuts, setDonuts] = useState(0)
+  const [bakeryDonut, setBakeryDonut] = useState(1)
   const [update, setUpdate] = useState('')
   const [positionvalue, setPositionValue] = useState(new Animated.ValueXY({x: 0, y: 0}))
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0))
+
+
+  
+
+  const BakeryPic = () => {
+    if (donuts > 1000){
+    return(
+        <Image style={styles.donut}source={require("../assets/donut2.png")} />
+    )
+    } else{
+      return(
+      <Image style={styles.donut}source={require("../assets/donut.png")} />
+      )
+    }
+    }
+  
 
   console.log(route.params.user)
   let db = Firebase.database()
@@ -19,12 +36,17 @@ const GameScreen = ({navigation, route}) => {
         // createdAt: db.FieldValue.serverTimeStamp
       })
     }
-
+    
   useEffect(() => {
       donutdb.once('value') 
       .then(function(snapshot) {
         setDonuts(snapshot.val().donuts)
       })
+      .catch((error)=> {
+        console.log(error)
+      })
+
+    
   }, [update])
 
   function handleRotate() {
@@ -32,7 +54,7 @@ const GameScreen = ({navigation, route}) => {
     Animated.timing(
     rotateValue,
       {
-       toValue: 0,
+       toValue: 2,
        duration: 300,
        easing: Easing.linear,
        useNativeDriver: true
@@ -45,7 +67,7 @@ function handleRotateBack() {
   rotateValue,
     {
      toValue: 4,
-     duration: 100,
+     duration: 300,
      easing: Easing.linear,
      useNativeDriver: true
     }
@@ -78,6 +100,15 @@ function handleRotateBack() {
     handleRotateBack()
   }
 
+  const donutCountHandler = () => {
+    let newDonutNum = donuts + 1
+    setDonuts(newDonutNum)
+    if (donuts % 5 == 0 && donuts > 0) {
+      route.params.setDonutCount(newDonutNum)
+      addDonuts(donuts)
+    }
+  }
+
 
   const RotateData = rotateValue.interpolate({
     inputRange: [0, 1],
@@ -86,18 +117,19 @@ function handleRotateBack() {
 
   return (
     <View style={styles.screen}>
+      <View style={styles.donutCounter}>
+        <Text>Dunk Counter:</Text>
+        <Text style={styles.donutText}>{donuts}</Text>
+      </View>
       <Image style={styles.cupBehind}source={require('../assets/cupBehind2.png')} />
-      <TouchableOpacity style={styles.container} activeOpacity={1} onPress={() => setDonuts(donuts + 1)} onPressIn={handleDonutAnim} onPressOut={handlePressOutAnim}>
-
-          <Animated.View style={positionvalue.getLayout()}>
-            <Animated.View style={{transform: [{rotate: rotateValue}]}}>
-              <Image style={styles.donut}source={require('../assets/donut3.png')} />
-            </Animated.View>
-          </Animated.View>
-
-      <Text>{donuts}</Text>
+      <TouchableOpacity style={styles.container} activeOpacity={1} onPress={donutCountHandler} onPressIn={handleDonutAnim} onPressOut={handlePressOutAnim}>
+      <Animated.View style={positionvalue.getLayout()}>
+        <Animated.View style={{transform: [{rotate: rotateValue}]}}>
+          <BakeryPic />
+        </Animated.View>
+      </Animated.View>  
       <View style={styles.cupContainer}>
-        <Image style={styles.cupFront}source={require('../assets/cupFront2.png')} />
+        <Image style={styles.cupFront} source={require('../assets/cupFront2.png')} />
       </View>
 
     </TouchableOpacity>
@@ -106,10 +138,19 @@ function handleRotateBack() {
 }
 const styles=StyleSheet.create({
     screen: {
-      backgroundColor: "coral",
+      backgroundColor: "#b8f2e6",
       flex: 1,
       justifyContent: "center",
       alignItems: 'center'
+    },
+    donutCounter: {
+      alignItems: "center",
+      marginTop: -150,
+    },
+    donutText: {
+      color: "#5e6472",
+      fontWeight: "900",
+      fontSize: 56,
     },
     container: {
       position: "absolute",
@@ -132,7 +173,7 @@ const styles=StyleSheet.create({
       height: 300,
     },
     cupBehind: {  
-      marginTop: 13,
+      marginTop: 61,
       width: 300,
       height: 300,
     }

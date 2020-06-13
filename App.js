@@ -22,6 +22,8 @@ export default function App() {
   const [buttonText, setButtonText] = useState("hello")
   const [token, setToken] = useState('')
   const [user, setUser] = useState('')
+  const [donutItem, setDonutItem] = useState(0)
+  const [donutCount, setDonutCount] = useState(0)
   
 
   const decodeToken = () => {
@@ -60,13 +62,13 @@ export default function App() {
 
   const GameStackScreen = () => (
     <GameStack.Navigator>
-      <GameStack.Screen name="Donut Dunker" component={GameScreen} initialParams={{ user: user }} />
+      <GameStack.Screen name="Donut Dunker" component={GameScreen} initialParams={{ user: user, donutItem: donutItem, donutCount: donutCount, setDonutCount: setDonutCount}} />
     </GameStack.Navigator>
   )
 
     const ShopScreenOpen = () => (
       <GameStack.Navigator>
-        <GameStack.Screen name="Donut Shop" component={ShopScreen} />
+        <GameStack.Screen name="Donut Shop" component={ShopScreen}  initialParams={{ setDonutItem: setDonutItem, donutCount: donutCount, setDonutCount: setDonutCount }} />
       </GameStack.Navigator>
     )
 
@@ -86,9 +88,9 @@ export default function App() {
   }
 
 
-  const tabNavigator = () => {
+  const tabNavigator = () => (
     <Tabs.Screen name="SignupHere" component={contentShop} />
-  }
+  )
 
   useEffect(() => {
     decodeToken()
@@ -97,9 +99,20 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tabs.Navigator>
+      <Tabs.Navigator tabBarOptions={{
+        activeTintColor: 'white',
+        labelStyle: {
+          fontSize: 20,
+          fontWeight: "bold"
+        },
+        style: {
+          color: "white",
+          backgroundColor: '#5e6472',
+        },
+      }}>
         <Tabs.Screen name="Donut Dunker" component={content} />
         <Tabs.Screen name={titleName} component={contentShop} />
+        
       </Tabs.Navigator>
     </NavigationContainer>
   );
@@ -108,5 +121,8 @@ export default function App() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+  },
+  tab: {
+    fontSize: 50,
   }
 });
