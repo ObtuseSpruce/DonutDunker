@@ -64,7 +64,7 @@ function handleRotateBack() {
   function moveBack() {
     Animated.timing(positionvalue, {
       toValue: {x: 0, y: 0},
-      duration: 100,
+      duration: 150,
       useNativeDriver: false
     }).start()
   }
@@ -87,11 +87,11 @@ function handleRotateBack() {
   return (
     <View style={styles.screen}>
       <Image style={styles.cupBehind}source={require('../assets/cupBehind2.png')} />
-      <TouchableOpacity style={styles.container} activeOpacity={.9} onPress={() => setDonuts(donuts + 1)} onPressIn={handleDonutAnim} onPressOut={handlePressOutAnim}>
+      <TouchableOpacity style={styles.container} activeOpacity={1} onPress={() => setDonuts(donuts + 1)} onPressIn={handleDonutAnim} onPressOut={handlePressOutAnim}>
 
           <Animated.View style={positionvalue.getLayout()}>
             <Animated.View style={{transform: [{rotate: rotateValue}]}}>
-              <Image style={styles.donut}source={require('../assets/donut.png')} />
+              <Image style={styles.donut}source={require('../assets/donut3.png')} />
             </Animated.View>
           </Animated.View>
 
@@ -106,9 +106,10 @@ function handleRotateBack() {
 }
 const styles=StyleSheet.create({
     screen: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: 'center'
+      backgroundColor: "coral",
+      flex: 1,
+      justifyContent: "center",
+      alignItems: 'center'
     },
     container: {
       position: "absolute",
@@ -122,7 +123,7 @@ const styles=StyleSheet.create({
       height: 180,
     },
     cupContainer: {
-      margin: 100
+      margin: 50
     },
     cupFront: {
       padding: 100,
