@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button, StyleSheet, Image, TouchableOpacity} from 'react-native'
+import {View, Text, Button, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native'
 import Firebase from '../config/Firebase'
 
 
@@ -18,13 +18,46 @@ const ShopScreen = ({navigation, route}) => {
         let newDonutNum
         if (num == 2){
             newDonutNum = parseInt(donutData) - 200
-            addDonuts(newDonutNum, num)
+            if (newDonutNum > 0) {
+                addDonuts(newDonutNum, num)
+            } else {
+                Alert.alert(
+                "Not Enough Dunks!",
+                "Go Dunk Your Donut!",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed"), style: "cancel" }
+                ],
+                { cancelable: false }
+              );
+            }
         } else if(num == 3) {
-            newDonutNum = parseInt(donutData) - 1000
-            addDonuts(newDonutNum, num)
+            newDonutNum = parseInt(donutData) - 5000
+            if (newDonutNum > 0) {
+                addDonuts(newDonutNum, num)
+            } else {
+                Alert.alert(
+                "Not Enough Dunks!",
+                "Go Dunk Your Donut!",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed"), style: "cancel" }
+                ],
+                { cancelable: false }
+              );
+            }
         } else {
             newDonutNum = parseInt(donutData) - 1
-            addDonuts(newDonutNum, num)
+            if (newDonutNum > 0) {
+                addDonuts(newDonutNum, num)
+            } else {
+                Alert.alert(
+                "Not Enough Dunks!",
+                "Go Dunk Your Donut!",
+                [
+                  { text: "OK", onPress: () => console.log("OK Pressed"), style: "cancel" }
+                ],
+                { cancelable: false }
+              );
+            }
         }
     }
 
