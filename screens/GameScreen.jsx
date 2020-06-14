@@ -5,15 +5,11 @@ import Firebase from '../config/Firebase'
 
 const GameScreen = ({navigation, route}) => {
   const [donuts, setDonuts] = useState(0)
-  const [bakeryDonut, setBakeryDonut] = useState(1)
   const [update, setUpdate] = useState('')
-  const [positionvalue, setPositionValue] = useState(new Animated.ValueXY({x: 0, y: 0}))
-  const [rotateValue, setRotateValue] = useState(new Animated.Value(0))
-
-  const [donutData, setDonutData] = useState()
   const [bakeryData, setBakeryData] = useState(1)
   const [donutValue, setDonutValue] = useState(1)
-
+  const [rotateValue, setRotateValue] = useState(new Animated.Value(0))
+  const [positionvalue, setPositionValue] = useState(new Animated.ValueXY({x: 0, y: 0}))
 
   
 
@@ -29,10 +25,10 @@ const GameScreen = ({navigation, route}) => {
       <Image style={styles.donut}source={require("../assets/donut3.png")} />
       ) 
     } else {
-        setDonutValue(1)
-        return(
-            <Image style={styles.donut}source={require("../assets/donut.png")} />
-        )
+      setDonutValue(1)
+      return(
+          <Image style={styles.donut}source={require("../assets/donut.png")} />
+      )
       } 
     }
   
@@ -43,7 +39,6 @@ const GameScreen = ({navigation, route}) => {
       donutdb.set({
         donuts: donutNum,
         bakeryData: bakeryData,
-        // createdAt: db.FieldValue.serverTimeStamp
       })
     }
     
@@ -51,7 +46,6 @@ const GameScreen = ({navigation, route}) => {
     donutdb.once('value') 
       .then(function(snapshot) {
         if (snapshot.val().donuts != null && snapshot.val().bakeryData != null){
-        console.log('donuts made it')
         setDonuts(snapshot.val().donuts)
         setBakeryData(snapshot.val().bakeryData)
         }
@@ -59,14 +53,6 @@ const GameScreen = ({navigation, route}) => {
       .catch((error)=> {
         console.log(error)
       })
-  }
-
-  const getBakeryData = () => {
-    donutdb.once('value')
-    .then(function(snapshot){
-      console.log(snapshot.val().bakeryData)
-      setBakeryData(snapshot.val().bakeryData)
-    })
   }
 
   useEffect(() => {
@@ -127,43 +113,10 @@ function handleRotateBack() {
     handleRotateBack()
   }
 
-  // const storeData = async () => {
-  //   let newNum = parseInt(donuts) + parseInt(donutValue)
-  //   try {
-  //     await AsyncStorage.setItem('DonutNum', `${donuts + donutValue}`)
-  //   } catch (error) {
-  //     // Error saving data
-  //   }
-  // };
-
-  // const getData = async () => { 
-  //   try {
-  //       const value = await AsyncStorage.getItem('DonutNum')
-  //       if(value !== null) {
-  //           setDonutData(value)
-  //           setDonuts(value)
-  //       }
-  //       } catch(e) {
-  //       // error reading value
-  //     }
-  //   }
-  // const getBakeData = async () => { 
-  //   try {
-  //       const value = await AsyncStorage.getItem('BakeryData')
-  //       if(value !== null) {
-  //           setBakeryData(value)
-  //       }
-  //       } catch(e) {
-  //       // error reading value
-  //     }
-  //   }
-
   const donutCountHandler = () => {
     let newDonutNum = donuts + donutValue
-    // getData()
     setDonuts(newDonutNum)
     addDonuts(newDonutNum, bakeryData)
-    console.log(donutValue)
   }
 
   const RotateData = rotateValue.interpolate({

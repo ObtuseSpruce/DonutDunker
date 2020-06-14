@@ -4,93 +4,41 @@ import Firebase from '../config/Firebase'
 
 
 const ShopScreen = ({navigation, route}) => {
+    // Use States declared
     const [donutData, setDonutData] = useState()
     const [bakeryData, setBakeryData] = useState(1)
-    const [donutPrice, setDonutPrice] = useState(1)
     const [update, setUpdate] = useState('')
 
+    // Firebase called
     let db = Firebase.database()
     let donutdb = db.ref('posts' + route.params.user.user_id)
-    
-    // const getData = async () => { 
-    // try {
-    //     const value = await AsyncStorage.getItem('DonutNum')
-    //     if(value !== null) {
-    //         setDonutData(value)
-    //     }
-    //     } catch(e) {
-    //     // error reading value
-    //     }
-    // }
-    // const getBakeData = async () => { 
-    //     try {
-    //         const value = await AsyncStorage.getItem('BakeryData')
-    //         if(value !== null) {
-    //             setBakeryDonut(value)
-    //         }
-    //         } catch(e) {
-    //         // error reading value
-    //         }
-    //     }
-    // const storeData = async () => {
-    //     let newNum = parseInt(donutData) + parseInt(donutPrice)
-    //     try {
-    //       await AsyncStorage.setItem('DonutNum', `${newNum}`)
-    //     } catch (error) {
-    //       // Error saving data
-    //     }
-    //   };
-
-    // const storeBakeData = async () => {
-    //     try {
-    //         await AsyncStorage.setItem('BakeryData', `${bakeryData}`)
-    //     } catch (error) {
-    //         // Error saving data
-    //     }
-    // };
-
-    const handleSetDonutNum = (num) => {
-        if (num == 2){
-            setDonutPrice(200)
-        } else if(num == 3) {
-            setDonutPrice(1000)
-        }
-    }
       
 
     const buyDonut = (num) => {
         let newDonutNum
         if (num == 2){
             newDonutNum = parseInt(donutData) - 200
-            console.log(newDonutNum)
             addDonuts(newDonutNum, num)
         } else if(num == 3) {
             newDonutNum = parseInt(donutData) - 1000
-            console.log(newDonutNum)
             addDonuts(newDonutNum, num)
         } else {
             newDonutNum = parseInt(donutData) - 1
-            console.log(newDonutNum)
             addDonuts(newDonutNum, num)
         }
     }
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         getData()
-    //         getBakeData()
-    //     }, 1000);
-    //       return () => clearInterval(interval);
-    //     }, [])
-
-
+    // adds or updates the dunk count and current donut type
+    //  put and post route for the database
     const addDonuts = (donutNum, bakeryData) => {
         donutdb.set({
           donuts: donutNum,
           bakeryData: bakeryData,
         })
       }
-      
+    
+    // calls the database to get the users donut count and donut type
+    // get route
     const getDonuts = () => {
       donutdb.once('value') 
         .then(function(snapshot) {
@@ -101,7 +49,8 @@ const ShopScreen = ({navigation, route}) => {
           console.log(error)
         })
     }
-  
+
+    // sets up a setInterval to check the database
     useEffect(() => {
       const interval = setInterval(() => {
           getDonuts()
