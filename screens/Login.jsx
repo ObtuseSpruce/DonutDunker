@@ -3,10 +3,8 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button } from 'rea
 import Firebase from '../config/Firebase'
 
 const Login = ({navigation, route}) => {
-    console.log()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
     handleLogin = () => {
         console.log(route.params.token)
         Firebase.auth()

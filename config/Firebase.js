@@ -7,15 +7,16 @@ import {
     MESSAGE_SENDER_ID,
     APP_ID
 } from 'react-native-dotenv'
+console.log("api Key",API_KEY)
 
 var firebaseConfig = {
-    apiKey: "AIzaSyBqfAH4WaunH5hNBeEB7EJhMndgrqa02GM",
-    authDomain: "willfirebasetest.firebaseapp.com",
-    databaseURL: "https://willfirebasetest.firebaseio.com",
-    projectId: "willfirebasetest",
+    apiKey: API_KEY,
+    authDomain: AUTH_DOMAIN,
+    databaseURL: DATABASE_URL,
+    projectId: PROJECT_ID,
     storageBucket: '',
     messagingSenderId: MESSAGE_SENDER_ID,
-    appId: "1:81353748464:web:a509aa40615dff95507735"
+    appId: APP_ID
   }; 
 
 // Initialize Firebase
