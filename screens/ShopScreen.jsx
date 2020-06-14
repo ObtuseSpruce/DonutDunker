@@ -18,7 +18,7 @@ const ShopScreen = ({navigation, route}) => {
         let newDonutNum
         if (num == 2){
             newDonutNum = parseInt(donutData) - 200
-            if (newDonutNum > 0) {
+            if (newDonutNum >= 0) {
                 addDonuts(newDonutNum, num)
             } else {
                 Alert.alert(
@@ -32,7 +32,7 @@ const ShopScreen = ({navigation, route}) => {
             }
         } else if(num == 3) {
             newDonutNum = parseInt(donutData) - 5000
-            if (newDonutNum > 0) {
+            if (newDonutNum >= 0) {
                 addDonuts(newDonutNum, num)
             } else {
                 Alert.alert(
@@ -46,7 +46,7 @@ const ShopScreen = ({navigation, route}) => {
             }
         } else {
             newDonutNum = parseInt(donutData) - 1
-            if (newDonutNum > 0) {
+            if (newDonutNum >= 0) {
                 addDonuts(newDonutNum, num)
             } else {
                 Alert.alert(
