@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button, StyleSheet, AsyncStorage} from 'react-native'
+import {View, Text, Button, StyleSheet, Image, TouchableOpacity} from 'react-native'
 import Firebase from '../config/Firebase'
 
 
@@ -111,19 +111,85 @@ const ShopScreen = ({navigation, route}) => {
 
     return(
         <View style={styles.screen}>
-            <Text>{donutData}</Text>
-            <Text>Pink Donut</Text>
-            <Button title="Buy Pink Donut" onPress={() => buyDonut(1)}/>
-            <Button title="Buy Chocolate Donut 200" onPress={() => buyDonut(2)}/>
-            <Button title="Buy Purple Donut 5000" onPress={() => buyDonut(3)}/>
+            <Text style={styles.donutText}>{donutData}</Text>
+            <View style={styles.shopContainer}>
+            <TouchableOpacity onPress={() => buyDonut(1)}>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>Price: 1 Dunk</Text>
+                </View>
+                <View style={styles.donutContainer}>
+                    <Image style={styles.donut}source={require("../assets/donut.png")} />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.text}>Buy Pink Donut</Text>
+                </View>
+            </TouchableOpacity>
+            </View>
+            <View style={styles.shopContainer}>
+                <TouchableOpacity onPress={() => buyDonut(2)}>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>Price: 200 Dunks</Text>
+                    </View>
+                    <View style={styles.donutContainer}>
+                        <Image style={styles.donut}source={require("../assets/donut2.png")} />
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>Buy Chocolate Donut</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.shopContainer}>
+                <TouchableOpacity onPress={() => buyDonut(3)}>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}>Price: 5000 Dunks</Text>
+                    </View>
+                    <View style={styles.donutContainer}>
+                        <Image style={styles.donut}source={require("../assets/donut3.png")} />
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.text}> Buy Purple Chocolate Glaze Donut</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     screen: {
+        backgroundColor: "#ffa69e",
         flex: 1,
+        justifyContent: "center",
         alignItems: 'center'
+    },
+    donutText: {
+        marginTop: -13,
+        color: "#5e6472",
+        fontWeight: "900",
+        fontSize: 56,
+    },
+    shopContainer: {
+        backgroundColor: "#b8f2e6",
+        borderRadius: 50,
+        padding: -20,
+        margin: 10,
+        width: 300,
+        height: 140
+    },
+    donutContainer: {
+        margin: 8,
+        alignItems: "center",
+    },
+    textContainer: {
+        alignItems: "center",
+    },
+    text: {
+        fontWeight: "bold",
+    },
+    donut: {
+        width: 80,
+        height: 80
     }
 })
 
