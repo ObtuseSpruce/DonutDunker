@@ -68,7 +68,7 @@ export default function App() {
 
     const ShopScreenOpen = () => (
       <GameStack.Navigator>
-        <GameStack.Screen name="Donut Shop" component={ShopScreen}  initialParams={{ setDonutItem: setDonutItem, donutCount: donutCount, setDonutCount: setDonutCount }} />
+        <GameStack.Screen name="Donut Shop" component={ShopScreen}  initialParams={{ user: user, setDonutItem: setDonutItem, donutCount: donutCount, setDonutCount: setDonutCount }} />
       </GameStack.Navigator>
     )
 

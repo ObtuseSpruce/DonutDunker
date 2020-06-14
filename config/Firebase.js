@@ -9,14 +9,14 @@ import {
 } from 'react-native-dotenv'
 
 var firebaseConfig = {
-    apiKey: API_KEY,
-    authDomain: AUTH_DOMAIN,
-    databaseURL: DATABASE_URL,
-    projectId: PROJECT_ID,
+    apiKey: "AIzaSyBqfAH4WaunH5hNBeEB7EJhMndgrqa02GM",
+    authDomain: "willfirebasetest.firebaseapp.com",
+    databaseURL: "https://willfirebasetest.firebaseio.com",
+    projectId: "willfirebasetest",
     storageBucket: '',
     messagingSenderId: MESSAGE_SENDER_ID,
-    appId: APP_ID
-  };
+    appId: "1:81353748464:web:a509aa40615dff95507735"
+  }; 
 
 // Initialize Firebase
 const Firebase = firebase.initializeApp(firebaseConfig)
