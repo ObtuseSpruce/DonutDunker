@@ -11,8 +11,11 @@ const GameScreen = ({navigation, route}) => {
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0))
   const [positionvalue, setPositionValue] = useState(new Animated.ValueXY({x: 0, y: 0}))
 
-  
+  // declaring the firebase variables for later calls
+  let db = Firebase.database()
+  let donutdb = db.ref('posts' + route.params.user.user_id)
 
+  // Built in component for displaying the right donut
   const BakeryPic = () => {
     if(bakeryData == 2){
       setDonutValue(5)
@@ -32,16 +35,19 @@ const GameScreen = ({navigation, route}) => {
       } 
     }
   
-  let db = Firebase.database()
-  let donutdb = db.ref('posts' + route.params.user.user_id)
-
+  
+  // Firebase call to the database, adds a document if there is none,
+  // otherwise it updates.
+  // PUT and POST
   const addDonuts = (donutNum, bakeryData) => {
       donutdb.set({
         donuts: donutNum,
         bakeryData: bakeryData,
       })
     }
-    
+  
+  // Firebase call to get the current dunk count and donut type.
+  // GET
   const getDonuts = () => {
     donutdb.once('value') 
       .then(function(snapshot) {
@@ -62,7 +68,13 @@ const GameScreen = ({navigation, route}) => {
       return () => clearInterval(interval);
   }, [update])
 
-  function handleRotate() {
+
+  //////////////////////////////////
+  /////// ANIMATION FUNCTIONS //////
+  //////////////////////////////////
+
+  //handles the rotating movement of the donut
+  const handleRotate = () => {
     Animated.loop(
     Animated.timing(
     rotateValue,
@@ -74,21 +86,21 @@ const GameScreen = ({navigation, route}) => {
       }
     )
    ).start()
-}
-function handleRotateBack() {
-  Animated.timing(
-  rotateValue,
-    {
-     toValue: 4,
-     duration: 300,
-     easing: Easing.linear,
-     useNativeDriver: true
-    }
-  
- ).start()
-}
-  
-  function moveDonut() {
+  }
+  const handleRotateBack = () => {
+    Animated.timing(
+    rotateValue,
+      {
+      toValue: 4,
+      duration: 300,
+      easing: Easing.linear,
+      useNativeDriver: true
+      }
+  ).start()
+  }
+
+  //handles the downward movement of the donut
+  const moveDonut = () => {
     Animated.timing(positionvalue, {
       toValue: {x: 0, y: 150},
       duration: 100,
@@ -96,7 +108,7 @@ function handleRotateBack() {
     }).start()
   }
 
-  function moveBack() {
+  const moveBack = () => {
     Animated.timing(positionvalue, {
       toValue: {x: 0, y: 0},
       duration: 150,
@@ -113,6 +125,9 @@ function handleRotateBack() {
     handleRotateBack()
   }
 
+
+  // depending on the donut type adds either 1, 5, or 15
+  // to the donut count on every tap.
   const donutCountHandler = () => {
     let newDonutNum = donuts + donutValue
     setDonuts(newDonutNum)

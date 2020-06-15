@@ -1,4 +1,6 @@
 import firebase from 'firebase'
+
+//import the dotenv keys
 import {
     API_KEY,
     AUTH_DOMAIN,
@@ -7,9 +9,10 @@ import {
     MESSAGE_SENDER_ID,
     APP_ID
 } from 'react-native-dotenv'
-console.log("api Key",API_KEY)
 
-var firebaseConfig = {
+
+// set the firebaseConfig to the right keys
+const firebaseConfig = {
     apiKey: API_KEY,
     authDomain: AUTH_DOMAIN,
     databaseURL: DATABASE_URL,

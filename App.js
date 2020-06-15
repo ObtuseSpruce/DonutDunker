@@ -14,8 +14,6 @@ import GameScreen from './screens/GameScreen'
 import ShopScreen from './screens/ShopScreen'
 
 
-
-
 export default function App() {
 
   
