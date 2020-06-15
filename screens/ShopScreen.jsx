@@ -14,6 +14,11 @@ const ShopScreen = ({navigation, route}) => {
     let donutdb = db.ref('posts' + route.params.user.user_id)
       
 
+
+    // This is the shop function, when you buy a donut it
+    // subtracts the right amount from your dunk count.
+    // Also it protects you from going into negative dunks
+    // this will trigger an alert.
     const buyDonut = (num) => {
         let newDonutNum
         if (num == 2){

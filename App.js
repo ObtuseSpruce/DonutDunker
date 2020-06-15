@@ -54,7 +54,7 @@ export default function App() {
   
   const SignupScreen = () => (
     <LoginStack.Navigator>
-      <LoginStack.Screen name="SignUpScreen" component={Signup} />
+      <LoginStack.Screen name="Signup Now!" component={Signup} />
     </LoginStack.Navigator>
   )
 

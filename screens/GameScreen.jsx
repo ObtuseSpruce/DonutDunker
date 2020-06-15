@@ -142,7 +142,6 @@ const GameScreen = ({navigation, route}) => {
   return (
     <View style={styles.screen}>
       <View style={styles.donutCounter}>
-        <Text>Dunk Counter:{bakeryData}</Text>
         <Text style={styles.donutText}>{donuts}</Text>
       </View>
       <Image style={styles.cupBehind}source={require('../assets/cupBehind2.png')} />
@@ -169,7 +168,7 @@ const styles=StyleSheet.create({
     },
     donutCounter: {
       alignItems: "center",
-      marginTop: -150,
+      marginTop: -132,
     },
     donutText: {
       color: "#5e6472",
@@ -197,7 +196,7 @@ const styles=StyleSheet.create({
       height: 300,
     },
     cupBehind: {  
-      marginTop: 61,
+      marginTop: 60,
       width: 300,
       height: 300,
     }

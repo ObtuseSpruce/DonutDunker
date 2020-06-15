@@ -5,6 +5,8 @@ import Firebase from '../config/Firebase'
 const Login = ({navigation, route}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    //User Login, returns a JWT token that is later decoded.
     handleLogin = () => {
         console.log(route.params.token)
         Firebase.auth()
